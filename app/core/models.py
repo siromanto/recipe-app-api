@@ -20,6 +20,20 @@ class UserManager(BaseUserManager):
 
         return user
 
+    def create_superuser(self, email, password):
+        """
+        Create a new superuser
+        :param email:
+        :param pssword:
+        :return:
+        """
+        user = self.create_user(email, password)
+        user.is_stuff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+
+        return user
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model that supports using email instead of username"""
